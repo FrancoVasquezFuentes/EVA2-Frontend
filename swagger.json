@@ -1794,7 +1794,7 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/MantenedorItem"
+                            "$ref": "#/components/schemas/CategoriaServicioItem"
                         }
                     }
                 }
@@ -1859,7 +1859,7 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/MantenedorItem"
+                            "$ref": "#/components/schemas/HistoriaItem"
                         }
                     }
                 }
@@ -1924,7 +1924,7 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/MantenedorItem"
+                            "$ref": "#/components/schemas/InfoContactoItem"
                         }
                     }
                 }
@@ -1989,7 +1989,7 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/MantenedorItem"
+                            "$ref": "#/components/schemas/EquipoItem"
                         }
                     }
                 }
