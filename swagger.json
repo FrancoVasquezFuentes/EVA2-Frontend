@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": " Energy And Water",
-        "description": "Este es un servidor de muestra de lo realizado en clases. Puede obtener más información sobre Swagger en [http://swagger.io](http://swagger.io) o en [irc.freenode.net, #swagger](http://swagger.io/irc/). <br><br>Para este ejemplo, puede utilizar las siguientes claves de API para métodos:<ul><li>Método GET - Authorization Bearer: `get_ciisa`</li><li>Método POST - Authorization Bearer: `post_ciisa`</li><li>Método PATCH - Authorization Bearer: `patch_ciisa`</li><li>Método PUT - Authorization Bearer: `put_ciisa`</li><li>Método DELETE - Authorization Bearer: `delete_ciisa`</li></ul>.",
+        "title": "Energy And Water",
+        "description": "Este es un servidor de muestra de la empresa Energy And Water. Puede obtener más información sobre Swagger en [http://swagger.io](http://swagger.io) o en [irc.freenode.net, #swagger](http://swagger.io/irc/). <br><br>Para este ejemplo, puede utilizar las siguientes claves de API para métodos:<ul><li>Método GET - Authorization Bearer: `get_ciisa`</li><li>Método POST - Authorization Bearer: `post_ciisa`</li><li>Método PATCH - Authorization Bearer: `patch_ciisa`</li><li>Método PUT - Authorization Bearer: `put_ciisa`</li><li>Método DELETE - Authorization Bearer: `delete_ciisa`</li></ul>.",
         "version": "1.0.0"
     },
     "servers": [
@@ -74,7 +74,7 @@
                 "tags": [
                     "Preguntas Frecuentes"
                 ],
-                "summary": "Crear nueva nueva pregunta frecuente",
+                "summary": "Crear una nueva pregunta frecuente",
                 "description": "Crea una pregunta frecuente, incluye: pregunta y respuesta",
                 "requestBody": {
                     "required": true,
@@ -271,15 +271,15 @@
                 "tags": [
                     "Mantenimiento Info"
                 ],
-                "summary": "Retorna todos los objetos",
-                "description": "Retorna una lista de objetos del tipo básico, incluye: id, nombre y activo",
+                "summary": "Retorna toda la info de mantenimiento",
+                "description": "Retorna una lista de info del mantenimiento incluye: id, nombre, texto y activo",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MantenimientoinfoResponse"
+                                    "$ref": "#/components/schemas/MantenimientoInfoResponse"
                                 }
                             }
                         }
@@ -298,14 +298,14 @@
                 "tags": [
                     "Mantenimiento Info"
                 ],
-                "summary": "Crear nuevo objeto",
-                "description": "Crea un objeto básico, incluye: id, nombre y activo",
+                "summary": "Crear una nueva info de mantenimiento",
+                "description": "Crea una info de mantenimiento, incluye: nombre y texto",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MantenimientoinfoCreate"
+                                "$ref": "#/components/schemas/MantenimientoInfoCreate"
                             }
                         }
                     }
@@ -345,8 +345,8 @@
                 "tags": [
                     "Mantenimiento Info"
                 ],
-                "summary": "Apagar o Encender un objeto",
-                "description": "Apaga o Enciende un objeto básico, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender una info de matenimiento",
+                "description": "Apaga o Enciende una info de mantenimiento, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -396,14 +396,14 @@
                 "tags": [
                     "Mantenimiento Info"
                 ],
-                "summary": "Modifica los datos de un objeto",
-                "description": "Se puede sólo modificar el campo `nombre`",
+                "summary": "Modifica los info de mantenimiento",
+                "description": "Se puede modificar el atributo `nombre` y/o `texto`, juntos o sepadaros.",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MantenimientoinfoUpdate"
+                                "$ref": "#/components/schemas/MantenimientoInfoUpdate"
                             }
                         }
                     }
@@ -433,8 +433,8 @@
                 "tags": [
                     "Mantenimiento Info"
                 ],
-                "summary": "Eliminar un objeto",
-                "description": "Elimina un objeto básico, lo borra de la base de datos.",
+                "summary": "Eliminar una info de mantenimiento",
+                "description": "Elimina una info de mantenimiento, lo borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",
@@ -485,8 +485,8 @@
                 "tags": [
                     "Categoria Servicio"
                 ],
-                "summary": "Retorna todos las preguntas frecuentes.",
-                "description": "Retorna una lista de preguntas frecuentes, incluye: id, pregunta, respuesta y activo",
+                "summary": "Retorna todos las categorias de servicios",
+                "description": "Retorna una lista de categoria servicio , incluye: id, nombre, imagen, texto y activo",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa",
@@ -512,8 +512,8 @@
                 "tags": [
                     "Categoria Servicio"
                 ],
-                "summary": "Crear nueva nueva pregunta frecuente",
-                "description": "Crea una pregunta frecuente, incluye: pregunta y respuesta",
+                "summary": "Crear una nueva categoria servicio",
+                "description": "Crea una categoria servicio, incluye: nombre, imagen y texto",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -549,8 +549,8 @@
                 "tags": [
                     "Categoria Servicio"
                 ],
-                "summary": "Apagar o Encender una pregunta frecuente",
-                "description": "Apaga o Enciende una pregunta frecuente, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender una categoria de servicio",
+                "description": "Apaga o Enciende una categoria deservicio, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -600,8 +600,8 @@
                 "tags": [
                     "Categoria Servicio"
                 ],
-                "summary": "Modifica los datos de una pregunta frecuente",
-                "description": "Puede modificar el atributo `pregunta` y/o `respuesta`. Pueden ser juntos o separados.",
+                "summary": "Modifica los datos de una categoria servicio",
+                "description": "Puede modificar el atributo `nombre`, `imagen` y/o `texto`. Pueden ser juntos o separados.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -647,8 +647,8 @@
                 "tags": [
                     "Categoria Servicio"
                 ],
-                "summary": "Eliminar una pregunta frecuente",
-                "description": "Elimina una pregunta frecuente, borra de la base de datos.",
+                "summary": "Eliminar una categoria de servicio",
+                "description": "Elimina una categoria de servicio, borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",
@@ -709,8 +709,8 @@
                 "tags": [
                     "Equipo"
                 ],
-                "summary": "Retorna todos las preguntas frecuentes.",
-                "description": "Retorna una lista de preguntas frecuentes, incluye: id, pregunta, respuesta y activo",
+                "summary": "Retorna toda la info del equipo y imagenes.",
+                "description": "Retorna una lista de info del equipo y imagenes, incluye: id, tipo, texto, activo, imagen_nombre y imagen_url",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa",
@@ -736,8 +736,8 @@
                 "tags": [
                     "Equipo"
                 ],
-                "summary": "Crear nueva nueva pregunta frecuente",
-                "description": "Crea una pregunta frecuente, incluye: pregunta y respuesta",
+                "summary": "Crear una nueva info del equipo o imagen",
+                "description": "Crea una imfo del equipo o imagen, incluye: tipo, texto o imagen_id.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -773,8 +773,8 @@
                 "tags": [
                     "Equipo"
                 ],
-                "summary": "Apagar o Encender una pregunta frecuente",
-                "description": "Apaga o Enciende una pregunta frecuente, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender una info del equipo o imagen",
+                "description": "Apaga o Enciende una info del equipo o imagen, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -825,7 +825,7 @@
                     "Equipo"
                 ],
                 "summary": "Modifica los datos de una pregunta frecuente",
-                "description": "Puede modificar el atributo `pregunta` y/o `respuesta`. Pueden ser juntos o separados.",
+                "description": "Puede modificar el atributo `tipo` y/o `texto`. Pueden ser juntos o separados.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -871,8 +871,8 @@
                 "tags": [
                     "Equipo"
                 ],
-                "summary": "Eliminar una pregunta frecuente",
-                "description": "Elimina una pregunta frecuente, borra de la base de datos.",
+                "summary": "Eliminar una info del equipo o imagen",
+                "description": "Elimina una info del equipo o imagen, borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",
@@ -933,8 +933,8 @@
                 "tags": [
                     "Historia"
                 ],
-                "summary": "Retorna todos las preguntas frecuentes.",
-                "description": "Retorna una lista de preguntas frecuentes, incluye: id, pregunta, respuesta y activo",
+                "summary": "Retorna todo la info de la historia y imagenes.",
+                "description": "Retorna una lista de info de la historia y imagenes, incluye: id, tipo, texto, activo, imagen_nombre y imagen_url",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa",
@@ -960,8 +960,8 @@
                 "tags": [
                     "Historia"
                 ],
-                "summary": "Crear nueva nueva pregunta frecuente",
-                "description": "Crea una pregunta frecuente, incluye: pregunta y respuesta",
+                "summary": "Crear una nueva info de historia o imagen",
+                "description": "Crea una info de historia o imagen, incluye: tipo, texto o imagen_id",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -997,8 +997,8 @@
                 "tags": [
                     "Historia"
                 ],
-                "summary": "Apagar o Encender una pregunta frecuente",
-                "description": "Apaga o Enciende una pregunta frecuente, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender una info de historia o imagen",
+                "description": "Apaga o Enciende una info de historia o imagen, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1048,8 +1048,8 @@
                 "tags": [
                     "Historia"
                 ],
-                "summary": "Modifica los datos de una pregunta frecuente",
-                "description": "Puede modificar el atributo `pregunta` y/o `respuesta`. Pueden ser juntos o separados.",
+                "summary": "Modifica los datos de una info de historia o imagen",
+                "description": "Puede modificar el atributo `texto` o `imagen_nombre` y/o `imagen_url`. Pueden ser juntos o separados.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1095,8 +1095,8 @@
                 "tags": [
                     "Historia"
                 ],
-                "summary": "Eliminar una pregunta frecuente",
-                "description": "Elimina una pregunta frecuente, borra de la base de datos.",
+                "summary": "Eliminar una info de historia o imagen",
+                "description": "Elimina una info de historia o imagen, borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1231,8 +1231,8 @@
                 "tags": [
                     "Info Contacto"
                 ],
-                "summary": "Apagar o Encender un objeto",
-                "description": "Apaga o Enciende un objeto básico, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender un contacto de informacion",
+                "description": "Apaga o Enciende un contacto de informacion, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1282,8 +1282,8 @@
                 "tags": [
                     "Info Contacto"
                 ],
-                "summary": "Modifica los datos de un objeto",
-                "description": "Se puede sólo modificar el campo `nombre`",
+                "summary": "Modifica los datos de un contacto informacion",
+                "description": "Se puede sólo modificar el atributo `nombre`, `icono`, `texto` y `texto_adicional`",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1319,8 +1319,8 @@
                 "tags": [
                     "Info Contacto"
                 ],
-                "summary": "Eliminar un objeto",
-                "description": "Elimina un objeto básico, lo borra de la base de datos.",
+                "summary": "Eliminar un contacto de informacion",
+                "description": "Elimina un contaco de informacion, lo borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1371,8 +1371,8 @@
                 "tags": [
                     "Imagen"
                 ],
-                "summary": "Retorna todos las preguntas frecuentes.",
-                "description": "Retorna una lista de preguntas frecuentes, incluye: id, pregunta, respuesta y activo",
+                "summary": "Retorna todos las imagenes.",
+                "description": "Retorna una lista de imagenes, incluye: id, nombre, imagen y activo",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa",
@@ -1398,8 +1398,8 @@
                 "tags": [
                     "Imagen"
                 ],
-                "summary": "Crear nueva nueva pregunta frecuente",
-                "description": "Crea una pregunta frecuente, incluye: pregunta y respuesta",
+                "summary": "Crear una nueva imagen",
+                "description": "Crea una imagen, incluye: nombre y imagen",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1435,8 +1435,8 @@
                 "tags": [
                     "Imagen"
                 ],
-                "summary": "Apagar o Encender una pregunta frecuente",
-                "description": "Apaga o Enciende una pregunta frecuente, deja activo en false o true respectivamente.",
+                "summary": "Apagar o Encender una imagen",
+                "description": "Apaga o Enciende una imagen, deja activo en false o true respectivamente.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1486,8 +1486,8 @@
                 "tags": [
                     "Imagen"
                 ],
-                "summary": "Modifica los datos de una pregunta frecuente",
-                "description": "Puede modificar el atributo `pregunta` y/o `respuesta`. Pueden ser juntos o separados.",
+                "summary": "Modifica los datos de una imagen",
+                "description": "Puede modificar el atributo `nombre` y/o `imagen`. Pueden ser juntos o separados.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1533,8 +1533,8 @@
                 "tags": [
                     "Imagen"
                 ],
-                "summary": "Eliminar una pregunta frecuente",
-                "description": "Elimina una pregunta frecuente, borra de la base de datos.",
+                "summary": "Eliminar una imagen",
+                "description": "Elimina una imagen, borra de la base de datos.",
                 "parameters": [
                     {
                         "name": "id",

@@ -49,64 +49,51 @@ if ($_version == 'Backend') {
                     include_once 'controller.php';
                     include_once '../conexion.php';
                     $control = new Controlador();
-                    $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "id": 1,
-                        "accion": "encender" o "apagar"     EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN  
-                    }*/
-        
-                    // Verificar si los datos requeridos están presentes en el cuerpo de la solicitud
-                    if (isset($body->id) && isset($body->accion)) {
-                        // Obtener los valores del cuerpo de la solicitud
-                        $valorId = $body->id;
-                        $valorAccion = $body->accion;
-
-                        // Validar la acción
-                        if ($valorAccion == 'encender' || $valorAccion == 'apagar') {
-                            $respuesta = $control->patchEncenderApagar($valorId, $valorAccion);
-                            if ($respuesta !== null) {
-                                http_response_code(200);
-                                echo json_encode(["data" => $respuesta]);  // Si el resultado es data: true se realizo correctamente
-                            } else {
-                                // En caso de error en la actualización
-                                http_response_code(500);
-                                echo json_encode(["Error" => "Error al actualizar el estado."]);
-                            }
+                    if ($existeId && $existeAccion) {
+                        if ($valorAccion == 'apagar') {
+                            $respuesta = $control->patchEncenderApagar($valorId, 'false');
+                            // echo "patch... $valorId - $valorAccion";
+                            http_response_code(200);
+                            echo json_encode(['data' => $respuesta]);
+                        } else if ($valorAccion == 'encender') {
+                            $respuesta = $control->patchEncenderApagar($valorId, 'true');
+                            http_response_code(200);
+                            echo json_encode(['data' => $respuesta]);
                         } else {
-                            // Acción no válida
-                            http_response_code(400);
-                            echo json_encode(["Error" => "Acción no válida"]);
+                            echo 'error con acciones';
                         }
                     } else {
-                        // Faltan parámetros
-                        http_response_code(400);
-                        echo json_encode(["Error" => "Faltan parámetros"]);
+                        echo 'faltan parametros';
                     }
                 } else {
-                    // Autorización fallida
                     http_response_code(401);
-                    echo json_encode(["Error" => "No tiene autorización PATCH"]);
+                    echo json_encode(['error' => 'no tiene autorizacion patch']);
                 }
                 break;
             case 'PUT':
                 if ($_header == $_token_put) {
                     include_once 'controller.php';
                     include_once '../conexion.php';
+                    $body = json_decode(file_get_contents("php://input", true));
+                    // var_dump($body);
                     $control = new Controlador();
-                    $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "id": "Ejemplo Id",
-                        "nombre": "Nuevo nombre",
-                        "icono": "Nuevo Icono",      EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN  
-                        "texto": "Nuevo texto",
-                        "texto_adicional": "Nuevo texto_adicional"
-                    }*/
-                    $respuesta = $control->putNombreById($body, $body->id);
+                    if (strlen($body->nombre) > 0) {
+                        $respuesta = $control->putNombreById($body->nombre, $body->id);
+                    }
+                    if (strlen($body->icono) > 0) {
+                        $respuesta = $control->putIconoById($body->icono, $body->id);
+                    }
+                    if (strlen($body->texto) > 0) {
+                        $respuesta = $control->putTextoById($body->texto, $body->id);
+                    }
+                    if (strlen($body->texto_adicional) > 0) {
+                        $respuesta = $control->putTextoAdicionalById($body->texto_adicional, $body->id);
+                    }
                     http_response_code(200);
-                    echo json_encode(["data" => $respuesta]);
+                    echo json_encode(['data' => $respuesta]);
                 } else {
                     http_response_code(401);
-                    echo json_encode(["Error" => "No tiene autorización PUT"]);
+                    echo json_encode(['error' => 'no tiene autorizacion put']);
                 }
                 break;
             case 'DELETE':
@@ -114,24 +101,18 @@ if ($_version == 'Backend') {
                     include_once 'controller.php';
                     include_once '../conexion.php';
                     $control = new Controlador();
-                    // cambiar $valorId por la id que desea eliminar
                     $respuesta = $control->deleteById($valorId);
-                    if ($respuesta) {
-                        http_response_code(200);
-                        echo json_encode(["data" => "Elemento eliminado correctamente"]);
-                    } else {
-                        http_response_code(404);
-                        echo json_encode(["Error" => "El elemento no se encontró"]);
-                    }
+                    http_response_code(200);
+                    echo json_encode(['data' => $respuesta]);
                 } else {
                     http_response_code(401);
-                    echo json_encode(["Error" => "No tiene autorización DELETE"]);
+                    echo json_encode(['error' => 'no tiene autorizacion delete']);
                 }
                 break;
             default:
                 http_response_code(405);
                 echo json_encode(["Error" => "Método no permitido"]);
-                break;
+            break;
         }
     }
 }

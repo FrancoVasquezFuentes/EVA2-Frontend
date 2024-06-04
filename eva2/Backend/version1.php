@@ -34,8 +34,8 @@ try {
 }
 
 //Tokens
-$_token_get = 'Bearer get';
-$_token_post = 'Bearer post';
-$_token_put = 'Bearer put';
-$_token_patch = 'Bearer patch';
-$_token_delete = 'Bearer delete';
+$_token_get = 'Bearer get_ciisa';
+$_token_post = 'Bearer post_ciisa';
+$_token_put = 'Bearer put_ciisa';
+$_token_patch = 'Bearer patch_ciisa';
+$_token_delete = 'Bearer delete_ciisa';
