@@ -42,7 +42,8 @@ class Controlador{
             // Insertar imagen si es posible
             if (isset($_nuevoObjeto->imagenes) && is_array($_nuevoObjeto->imagenes)) {
                 foreach ($_nuevoObjeto->imagenes as $imagen_id) {
-                    $sqlImagen = "INSERT INTO historia_imagen (historia_id, imagen_id) VALUES ($historia_id, $imagen_id)";
+                    $id = count($this->getAll()) + 1;
+                    $sqlImagen = "INSERT INTO historia_imagen (historia_id, imagen_id) VALUES ($id, $historia_id $imagen_id)";
                     mysqli_query($con->getConnection(), $sqlImagen);
                 }
             }
@@ -70,32 +71,38 @@ class Controlador{
         return $success;
     }
 
-    public function putNombreById($_nuevoObjeto, $_id) {
+    public function putTextoById($_nuevo, $_id)
+    {
         $con = new Conexion();
-        $tipo = mysqli_real_escape_string($con->getConnection(), $_nuevoObjeto->tipo);
-        $texto = mysqli_real_escape_string($con->getConnection(), $_nuevoObjeto->texto);
-        $sql = "UPDATE historia SET tipo = '$tipo', texto = '$texto' WHERE id = $_id";
-        $success = false;
-
+        $sql = "UPDATE equipo SET texto = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
         try {
-            $success = mysqli_query($con->getConnection(), $sql);
-
-            if (isset($_nuevoObjeto->imagenes) && is_array($_nuevoObjeto->imagenes)) {
-                // First, delete old associations
-                $sqlDelete = "DELETE FROM historia_imagen WHERE historia_id = $_id";
-                mysqli_query($con->getConnection(), $sqlDelete);
-
-                foreach ($_nuevoObjeto->imagenes as $imagen_id) {
-                    $sqlImagen = "INSERT INTO historia_imagen (historia_id, imagen_id) VALUES ($_id, $imagen_id)";
-                    mysqli_query($con->getConnection(), $sqlImagen);
-                }
-            }
-        } catch (Exception $e) {
-            $success = false;
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
         }
-
         $con->closeConnection();
-        return $success;
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putTipoById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE equipo SET tipo = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
+        if ($rs) {
+            return true;
+        }
+        return null;
     }
 
     public function deleteById($_id) {

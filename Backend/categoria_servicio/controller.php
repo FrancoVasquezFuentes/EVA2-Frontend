@@ -67,21 +67,51 @@ class Controlador{
         return null;
     }
 
-    public function putNombreById($_nombre, $_id)
+    public function putNombreById($_nuevo, $_id)
     {
         $con = new Conexion();
-        $sql = "UPDATE categoria_servicio SET nombre = '$_nombre->nombre', imagen = '$_nombre->imagen', texto = '$_nombre->texto' WHERE id = $_id";
-        
-        $rs = [];
+        $sql = "UPDATE categoria_servicio SET nombre = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
-            $rs = null;
+            $rs = false;
         }
-        
-        
         $con->closeConnection();
-        
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putImagenById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE categoria_servicio SET imagne = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putTextoyId($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE categoria_servicio SET texto = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
         if ($rs) {
             return true;
         }

@@ -1,4 +1,9 @@
 <?php
+//Headers
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json; charset=utf-8");
 
 $_metodo = $_SERVER['REQUEST_METHOD'];
 $_ubicacion = $_SERVER['HTTP_HOST'];
@@ -16,12 +21,6 @@ if (strlen($_parametros)> 0){
     $_parametros = [];
 }
 
-//Headers
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json; charset=utf-8");
-
 //Authorization
 $_header = null;
 try {
@@ -35,8 +34,8 @@ try {
 }
 
 //Tokens
-$_token_get = 'Bearer get';
-$_token_post = 'Bearer post';
-$_token_put = 'Bearer put';
-$_token_patch = 'Bearer patch';
-$_token_delete = 'Bearer delete';
+$_token_get = 'Bearer get_ciisa';
+$_token_post = 'Bearer post_ciisa';
+$_token_put = 'Bearer put_ciisa';
+$_token_patch = 'Bearer patch_ciisa';
+$_token_delete = 'Bearer delete_ciisa';

@@ -67,21 +67,69 @@ class Controlador{
         return null;
     }
 
-    public function putNombreById($_nombre, $_id)
+    public function putNombreById($_nuevo, $_id)
     {
         $con = new Conexion();
-        $sql = "UPDATE info_contacto SET nombre = '$_nombre->nombre', icono = '$_nombre->icono', texto = '$_nombre->texto', texto_adicional = '$_nombre->texto_adicional', WHERE id = $_id;";
-        
-        $rs = [];
+        $sql = "UPDATE info_contacto SET nombre = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
-            $rs = null;
+            $rs = false;
         }
-        
-        
         $con->closeConnection();
-        
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putIconoById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE info_contacto SET icono = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putTextoById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE info_contacto SET texto = '$_nuevo' WHERE id = $_id;";
+        // echo $sql;
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putTextoAdicionalById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE info_contacto SET texto_adicional = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection();
         if ($rs) {
             return true;
         }

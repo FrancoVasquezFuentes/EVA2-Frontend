@@ -63,19 +63,34 @@ class Controlador {
         return null;
     }
 
-    public function putNombreById($_nombre, $_id) {
+    public function putPreguntaById($_nuevo, $_id)
+    {
         $con = new Conexion();
-        $sql = "UPDATE pregunta_frecuente SET pregunta = '$_nombre->pregunta', respuesta = '$_nombre->respuesta' WHERE id = $_id";
-        
-        $rs = [];
+        $sql = "UPDATE pregunta_frecuente SET pregunta = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
-            $rs = null;
+            $rs = false;
         }
-        
+        $con->closeConnection()
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putRespuestaById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE pregunta_frecuente SET respuesta = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
         $con->closeConnection();
-        
         if ($rs) {
             return true;
         }

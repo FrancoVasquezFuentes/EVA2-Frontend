@@ -29,7 +29,7 @@ class Controlador{
         $con = new Conexion();
         
         $id = count($this->getAll()) + 1;
-        $sql = "INSERT INTO imagen (nombre, imagen, activo) VALUES ('$_nuevoObjeto->nombre', '$_nuevoObjeto->imagen', true)";
+        $sql = "INSERT INTO imagen (id, nombre, imagen, activo) VALUES ($id, '$_nuevoObjeto->nombre', '$_nuevoObjeto->imagen', true)";
         
         $rs = [];
         try {
@@ -67,21 +67,34 @@ class Controlador{
         return null;
     }
 
-    public function putNombreById($_nombre, $_id)
+    public function putNombreById($_nuevo, $_id)
     {
         $con = new Conexion();
-        $sql = "UPDATE imagen SET nombre = '$_nombre->nombre', imagen = '$_nombre->imagen' WHERE id = $_id;";
-        
-        $rs = [];
+        $sql = "UPDATE imagen SET nombre = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
-            $rs = null;
+            $rs = false;
         }
-        
-        
-        $con->closeConnection();
-        
+        $con->closeConnection()
+        if ($rs) {
+            return true;
+        }
+        return null;
+    }
+
+    public function putImagenById($_nuevo, $_id)
+    {
+        $con = new Conexion();
+        $sql = "UPDATE imagen SET imagen = '$_nuevo' WHERE id = $_id;";
+        $rs = false;
+        try {
+            $rs = mysqli_query($con->getConnection(), $sql);
+        } catch (\Throwable $th) {
+            $rs = false;
+        }
+        $con->closeConnection()
         if ($rs) {
             return true;
         }
