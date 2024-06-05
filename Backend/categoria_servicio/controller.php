@@ -49,18 +49,15 @@ class Controlador{
     public function patchEncenderApagar($_id, $_accion)
     {
         $con = new Conexion();
-        $activo = $_accion === 'encender' ? 1 : 0;
-        $sql = "UPDATE categoria_servicio SET activo = $activo WHERE id = $_id";
-        
-        $rs = [];
+        $sql = "UPDATE categoria_servicio SET activo = $_accion WHERE id = $_id;";
+        $rs = false;
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
-            $rs = null;
+            $rs = false;
         }
-        
+
         $con->closeConnection();
-        
         if ($rs) {
             return true;
         }
@@ -101,7 +98,7 @@ class Controlador{
         return null;
     }
 
-    public function putTextoyId($_nuevo, $_id)
+    public function putTextoyById($_nuevo, $_id)
     {
         $con = new Conexion();
         $sql = "UPDATE categoria_servicio SET texto = '$_nuevo' WHERE id = $_id;";

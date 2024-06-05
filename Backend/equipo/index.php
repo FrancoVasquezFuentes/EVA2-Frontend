@@ -1,6 +1,26 @@
 <?php
 include_once '../version1.php';
 
+//parametros
+$existeId = false;
+$valorId = 0;
+$existeAccion = false;
+$valorAccion = 0;
+
+
+if (count($_parametros) > 0) {
+    foreach ($_parametros as $p) {
+        if (strpos($p, 'id') !== false) {
+            $existeId = true;
+            $valorId = explode('=', $p)[1];
+        }
+        if (strpos($p, 'accion') !== false) {
+            $existeAccion = true;
+            $valorAccion = explode('=', $p)[1];
+        }
+    }
+}
+
 if ($_version == 'Backend') {
     if ($_mantenedor == 'equipo') {
         switch ($_metodo) {
@@ -25,8 +45,8 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input"));
                     /*{
                         "tipo": "Ejemplo de tipo",               EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN  
-                        "texto": "Ejemplo de texto" o "imagene_nombre": "Ejemplo nombre imagen", 
-                        "imagen_url": "https:/EjemploNombreImagen
+                        "texto": "Ejemplo de texto",
+                        "imagenes": [1, 2, 3]  // IDs de imágenes relacionadas (opcional)
                     }*/                  
                     $respuesta  = $control->postNuevo($body);
                     if ($respuesta) {

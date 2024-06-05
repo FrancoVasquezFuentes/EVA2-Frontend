@@ -1,6 +1,26 @@
 <?php
 include_once '../version1.php';
 
+//parametros
+$existeId = false;
+$valorId = 0;
+$existeAccion = false;
+$valorAccion = 0;
+
+
+if (count($_parametros) > 0) {
+    foreach ($_parametros as $p) {
+        if (strpos($p, 'id') !== false) {
+            $existeId = true;
+            $valorId = explode('=', $p)[1];
+        }
+        if (strpos($p, 'accion') !== false) {
+            $existeAccion = true;
+            $valorAccion = explode('=', $p)[1];
+        }
+    }
+}
+
 if ($_version == 'Backend') {
     if ($_mantenedor == 'mantenimiento_info') {
         switch ($_metodo) {

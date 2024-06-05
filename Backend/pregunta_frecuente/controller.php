@@ -73,7 +73,7 @@ class Controlador {
         } catch (\Throwable $th) {
             $rs = false;
         }
-        $con->closeConnection()
+        $con->closeConnection();
         if ($rs) {
             return true;
         }

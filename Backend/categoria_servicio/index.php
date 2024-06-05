@@ -1,6 +1,25 @@
 <?php
 include_once '../version1.php';
 
+//parametros
+$existeId = false;
+$valorId = 0;
+$existeAccion = false;
+$valorAccion = 0;
+
+if (count($_parametros) > 0) {
+    foreach ($_parametros as $p) {
+        if (strpos($p, 'id') !== false) {
+            $existeId = true;
+            $valorId = explode('=', $p)[1];
+        }
+        if (strpos($p, 'accion') !== false) {
+            $existeAccion = true;
+            $valorAccion = explode('=', $p)[1];
+        }
+    }
+}
+
 if ($_version == 'Backend') {
     if ($_mantenedor == 'categoria_servicio') {
         switch ($_metodo) {
@@ -55,6 +74,7 @@ if ($_version == 'Backend') {
                             echo json_encode(['data' => $respuesta]);
                         } else if ($valorAccion == 'encender') {
                             $respuesta = $control->patchEncenderApagar($valorId, 'true');
+                            // echo "patch... $valorId - $valorAccion";
                             http_response_code(200);
                             echo json_encode(['data' => $respuesta]);
                         } else {
@@ -78,11 +98,11 @@ if ($_version == 'Backend') {
                     if (strlen($body->nombre) > 0) {
                         $respuesta = $control->putNombreById($body->nombre, $body->id);
                     }
-                    if (strlen($body->Imagen) > 0) {
+                    if (strlen($body->imagen) > 0) {
                         $respuesta = $control->putImagenById($body->imagen, $body->id);
                     }
                     if (strlen($body->texto) > 0) {
-                        $respuesta = $control->putTextoById($body->texto, $body->id);
+                        $respuesta = $control->putTextoyById($body->texto, $body->id);
                     }
                     http_response_code(200);
                     echo json_encode(['data' => $respuesta]);

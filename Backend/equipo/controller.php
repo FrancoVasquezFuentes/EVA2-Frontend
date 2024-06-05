@@ -29,28 +29,39 @@ class Controlador{
 
     public function postNuevo($_nuevoObjeto) {
         $con = new Conexion();
+        $conn = $con->getConnection();
         $id = count($this->getAll()) + 1;
-        $tipo = mysqli_real_escape_string($con->getConnection(), $_nuevoObjeto->tipo);
-        $texto = mysqli_real_escape_string($con->getConnection(), $_nuevoObjeto->texto);
+        $tipo = mysqli_real_escape_string($conn, $_nuevoObjeto->tipo);
+        $texto = mysqli_real_escape_string($conn, $_nuevoObjeto->texto);
         $sql = "INSERT INTO equipo (id, tipo, texto, activo) VALUES ($id, '$tipo', '$texto', true)";
         $success = false;
-
+    
         try {
-            $success = mysqli_query($con->getConnection(), $sql);
-            $equipo_id = mysqli_insert_id($con->getConnection());
-
-            // Insert images if provided
+            mysqli_begin_transaction($conn); // Start a transaction
+            $success = mysqli_query($conn, $sql);
+            $equipo_id = mysqli_insert_id($conn);
+    
+            // Insertar imagenes si se dan
             if (isset($_nuevoObjeto->imagenes) && is_array($_nuevoObjeto->imagenes)) {
                 foreach ($_nuevoObjeto->imagenes as $imagen_id) {
-                    $id = count($this->getAll()) + 1;
-                    $sqlImagen = "INSERT INTO equipo_imagen (id, equipo_id, imagen_id) VALUES ($id, $equipo_id, $imagen_id)";
-                    mysqli_query($con->getConnection(), $sqlImagen);
+                    $sqlCount = "SELECT COUNT(id) AS count FROM equipo_imagen";
+                    $result = mysqli_query($conn, $sqlCount);
+                    $row = mysqli_fetch_assoc($result);
+                    $new_id = $row['count'] + 1;
+    
+                    $sqlImagen = "INSERT INTO equipo_imagen (id, equipo_id, imagen_id) VALUES ($new_id, $equipo_id, $imagen_id)";
+                    if (!mysqli_query($conn, $sqlImagen)) {
+                        throw new Exception("Failed to insert image ID: $imagen_id");
+                    }
                 }
             }
+    
+            mysqli_commit($conn); 
         } catch (Exception $e) {
+            mysqli_rollback($conn); 
             $success = false;
         }
-
+    
         $con->closeConnection();
         return $success;
     }

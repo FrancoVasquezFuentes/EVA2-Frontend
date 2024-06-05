@@ -1642,12 +1642,16 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "example": "0"
+                        "type": "int",
+                        "example": 0
                     },
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nombre"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto"
                     },
                     "activo": {
                         "type": "boolean",
@@ -1671,36 +1675,36 @@
                 "properties": {
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "nuevo nombre"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "nuevo texto"
                     }
                 },
                 "required": [
-                    "nombre"
+                    "nombre",
+                    "texto"
                 ]
             },
             "MantenimientoInfoUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "int",
+                        "example": 10
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "example": "nombre actualizado"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "texto actualizado"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id"
                 ]
             },
             "PreguntaFrecuenteItem": {
@@ -1716,7 +1720,7 @@
                     },
                     "respuesta": {
                         "type": "string",
-                        "example": "RE: Una respuesta"
+                        "example": "RE: Respuesta"
                     },
                     "activo": {
                         "type": "boolean",
@@ -1748,7 +1752,8 @@
                     }
                 },
                 "required": [
-                    "nombre"
+                    "pregunta",
+                    "respuesta"
                 ]
             },
             "PreguntaFrecuenteUpdate": {
@@ -1775,12 +1780,20 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "example": "0"
+                        "type": "int",
+                        "example": 0
                     },
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nombre"
+                    },
+                    "imagen": {
+                        "type": "img",
+                        "example": "imagen.jpg"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto"
                     },
                     "activo": {
                         "type": "boolean",
@@ -1804,52 +1817,73 @@
                 "properties": {
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nuevo nombre"
+                    },
+                    "imagen": {
+                        "type": "img",
+                        "example": "nuevaimagen.jpg"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un nuevo texto"
                     }
                 },
                 "required": [
-                    "nombre"
+                    "nombre",
+                    "imagen",
+                    "texto"
                 ]
             },
             "CategoriaServicioUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "int",
+                        "example": 10
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "example": "este es un nombre actualizado"
+                    },
+                    "imagen": {
+                        "type": "img",
+                        "example": "imagenactualizada.jpg"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto actualizado"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id"
                 ]
             },
             "HistoriaItem": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "example": "0"
+                        "type": "int",
+                        "example": 0
                     },
-                    "nombre": {
+                    "tipo": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un tipo de texto"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto"
                     },
                     "activo": {
                         "type": "boolean",
                         "example": true
+                    },
+                    "imagen_nombre": {
+                        "type": "string",
+                        "example": "este es el nombre de una imagen"
+                    },
+                    "imagen_url": {
+                        "type": "string",
+                        "example": "esta es la url de una imagen"
                     }
                 }
             },
@@ -1867,50 +1901,68 @@
             "HistoriaCreate": {
                 "type": "object",
                 "properties": {
-                    "nombre": {
+                    "tipo": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "nuevo tipo, si es un tipo de texto ingresar un texto, si es de tipo imagen primero revisar si hay imagenes disponibles en el endpoint imagen"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "nuevo texto"
+                    },
+                    "imagenes": {
+                        "type": "array",
+                        "items":{
+                            "type": "integer",
+                            "example": [1, 2, 3]
+                        }
                     }
                 },
                 "required": [
-                    "nombre"
+                    "tipo"
                 ]
             },
             "HistoriaUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "int",
+                        "example": 10
+                    },
+                    "tipo": {
+                        "type": "string",
+                        "example": "tipo de texto actualizado"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "texto actualizado"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id"
                 ]
             },
             "InfoContactoItem": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "example": "0"
+                        "type": "int",
+                        "example": 0
                     },
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nombre"
+                    },
+                    "icono": {
+                        "type": "string",
+                        "example": "este es un icono"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto"
+                    },
+                    "texto_adicional": {
+                        "type": "string",
+                        "example": "este es un texto adicional"
                     },
                     "activo": {
                         "type": "boolean",
@@ -1934,52 +1986,78 @@
                 "properties": {
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nuevo nombre"
+                    },
+                    "icono": {
+                        "type": "string",
+                        "example": "este es un nuevo icono"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un nuevo texto"
+                    },
+                    "texto_adicional": {
+                        "type": "string",
+                        "example": "este es un nuevo texto adicional"
                     }
                 },
                 "required": [
-                    "nombre"
+                    "nombre",
+                    "icono",
+                    "texto",
+                    "texto_adicional"
                 ]
             },
             "InfoCOntactoUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "integer",
+                        "example": 13
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "example": "nombre actualizado"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "texto actualizado"
+                    },
+                    "texto_adicional": {
+                        "type": "string",
+                        "example": "texto adicional actualizado"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id"
                 ]
             },
             "EquipoItem": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "example": "0"
+                        "type": "int",
+                        "example": 0
                     },
-                    "nombre": {
+                    "tipo": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un tipo de texto"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "este es un texto"
                     },
                     "activo": {
                         "type": "boolean",
                         "example": true
+                    },
+                    "imagen_nombre": {
+                        "type": "string",
+                        "example": "este es el nombre de una imagen"
+                    },
+                    "imagen_url": {
+                        "type": "string",
+                        "example": "esta es la url de una imagen"
                     }
                 }
             },
@@ -1997,38 +2075,41 @@
             "EquipoCreate": {
                 "type": "object",
                 "properties": {
-                    "nombre": {
+                    "tipo": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "nuevo tipo, si es un tipo de texto ingresar un texto, si es de tipo imagen primero revisar si hay imagenes disponibles en el endpoint imagen"
+                    },
+                    "texto": {
+                        "type": "string",
+                        "example": "nuevo texto" 
+                    },
+                    "imagenes": {
+                        "type": "array",
+                        "items":{
+                            "type": "integer",
+                            "example": [1, 2, 3]
+                        }
                     }
                 },
                 "required": [
-                    "nombre"
+                    "tipo"
                 ]
             },
             "EquipoUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "integer",
+                        "example": 13
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "example": "Desarrollo Backend"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id",
+                    "nombre"
                 ]
             },
             "ImagenItem": {
@@ -2036,11 +2117,15 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "example": "0"
+                        "example": 0
                     },
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nombre"
+                    },
+                    "imagen": {
+                        "type": "string",
+                        "example": "esta es una imagen.jpg"
                     },
                     "activo": {
                         "type": "boolean",
@@ -2064,36 +2149,36 @@
                 "properties": {
                     "nombre": {
                         "type": "string",
-                        "example": "nuevo objeto"
+                        "example": "este es un nombre"
+                    },
+                    "imagen": {
+                        "type": "string",
+                        "example": "esta es una nueva imagen.jpg"
                     }
                 },
                 "required": [
-                    "nombre"
+                    "nombre",
+                    "imagen"
                 ]
             },
             "ImagenUpdate": {
                 "type": "object",
                 "properties": {
-                    "mantenedor": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "example": 13
-                            },
-                            "nombre": {
-                                "type": "string",
-                                "example": "Desarrollo Backend"
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "nombre"
-                        ]
+                    "id": {
+                        "type": "string",
+                        "example": 0
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "example": "este es un nombre actualizado" 
+                    },
+                    "imagen": {
+                        "type": "string",
+                        "example": "esta es una imagen.jpg actualizada"
                     }
                 },
                 "required": [
-                    "mantenedor"
+                    "id"
                 ]
             }
         }
