@@ -11,7 +11,7 @@ class Controlador{
     public function getAll()
     {
         $con = new Conexion();
-        $sql = "SELECT id, nombre, icono, texto, texto_adicional, activo FROM info_contacto;";
+        $sql = "SELECT id, nombre, texto, texto_adicional, activo FROM info_contacto;";
         $rs = mysqli_query($con->getConnection(), $sql);
         if ($rs) {
             while ($tupla = mysqli_fetch_assoc($rs)) {
@@ -29,7 +29,7 @@ class Controlador{
         $con = new Conexion();
         
         $id = count($this->getAll()) + 1;
-        $sql = "INSERT INTO mantenimiento_info (id, nombre, icono, texto, texto_adicional, activo) VALUES ($id, '$_nuevoObjeto->nombre', '$_nuevoObjeto->icono', '$_nuevoObjeto->texto', '$_nuevoObjeto->texto_adicional', true)";
+        $sql = "INSERT INTO info_contacto (id, nombre, texto, texto_adicional, activo) VALUES ($id, '$_nuevoObjeto->nombre', '$_nuevoObjeto->texto', '$_nuevoObjeto->texto_adicional', true)";
         
         $rs = [];
         try {

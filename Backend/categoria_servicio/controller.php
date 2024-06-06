@@ -50,7 +50,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE categoria_servicio SET activo = $_accion WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
@@ -68,7 +68,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE categoria_servicio SET nombre = '$_nuevo' WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
@@ -85,7 +85,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE categoria_servicio SET imagne = '$_nuevo' WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
@@ -102,7 +102,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE categoria_servicio SET texto = '$_nuevo' WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {

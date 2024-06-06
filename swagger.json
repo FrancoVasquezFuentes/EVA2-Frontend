@@ -737,7 +737,7 @@
                     "Equipo"
                 ],
                 "summary": "Crear una nueva info del equipo o imagen",
-                "description": "Crea una imfo del equipo o imagen, incluye: tipo, texto o imagen_id.",
+                "description": "Crea una info del equipo o imagen, incluye: tipo, texto o imagen_id.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -824,8 +824,8 @@
                 "tags": [
                     "Equipo"
                 ],
-                "summary": "Modifica los datos de una pregunta frecuente",
-                "description": "Puede modificar el atributo `tipo` y/o `texto`. Pueden ser juntos o separados.",
+                "summary": "Modifica los datos de la info del equipo",
+                "description": "Puede modificar el atributo `tipo` y/o `texto`. Pueden ser juntos o separados. De querer actualizar una imagen hacerlo en el endpoint imagen",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1049,7 +1049,7 @@
                     "Historia"
                 ],
                 "summary": "Modifica los datos de una info de historia o imagen",
-                "description": "Puede modificar el atributo `texto` o `imagen_nombre` y/o `imagen_url`. Pueden ser juntos o separados.",
+                "description": "Puede modificar el atributo `tipo` y/o `texto` . Pueden ser juntos o separados. De querer actualizar una imagen hacerlo en el endpoint imagen",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1534,7 +1534,7 @@
                     "Imagen"
                 ],
                 "summary": "Eliminar una imagen",
-                "description": "Elimina una imagen, borra de la base de datos.",
+                "description": "Elimina una imagen, solo se puede borrar de la base de datos si la imagen no esta en uso en equipo o historia",
                 "parameters": [
                     {
                         "name": "id",
@@ -1911,10 +1911,10 @@
                     },
                     "imagenes": {
                         "type": "array",
-                        "items":{
-                            "type": "integer",
-                            "example": [1, 2, 3]
-                        }
+                        "items": {
+                            "type": "integer"
+                        },
+                        "example": [1]
                     }
                 },
                 "required": [
@@ -1952,10 +1952,6 @@
                         "type": "string",
                         "example": "este es un nombre"
                     },
-                    "icono": {
-                        "type": "string",
-                        "example": "este es un icono"
-                    },
                     "texto": {
                         "type": "string",
                         "example": "este es un texto"
@@ -1970,7 +1966,7 @@
                     }
                 }
             },
-            "InfoContactoCreate": {
+            "InfoContactoResponse": {
                 "type": "object",
                 "properties": {
                     "data": {
@@ -1981,16 +1977,12 @@
                     }
                 }
             },
-            "InfoContactoResponse": {
+            "InfoContactoCreate": {
                 "type": "object",
                 "properties": {
                     "nombre": {
                         "type": "string",
                         "example": "este es un nuevo nombre"
-                    },
-                    "icono": {
-                        "type": "string",
-                        "example": "este es un nuevo icono"
                     },
                     "texto": {
                         "type": "string",
@@ -2003,12 +1995,11 @@
                 },
                 "required": [
                     "nombre",
-                    "icono",
                     "texto",
                     "texto_adicional"
                 ]
             },
-            "InfoCOntactoUpdate": {
+            "InfoContactoUpdate": {
                 "type": "object",
                 "properties": {
                     "id": {
@@ -2081,19 +2072,18 @@
                     },
                     "texto": {
                         "type": "string",
-                        "example": "nuevo texto" 
+                        "example": "nuevo texto"
                     },
                     "imagenes": {
                         "type": "array",
-                        "items":{
-                            "type": "integer",
-                            "example": [1, 2, 3]
-                        }
+                        "items": {
+                            "type": "integer"
+                        },
+                        "example": [1]
                     }
+                
                 },
-                "required": [
-                    "tipo"
-                ]
+                "required": ["tipo"]
             },
             "EquipoUpdate": {
                 "type": "object",
@@ -2102,14 +2092,17 @@
                         "type": "integer",
                         "example": 13
                     },
-                    "nombre": {
+                    "tipo": {
+                        "type": "string",
+                        "example": "tipo de texto actualizado"
+                    },
+                    "texto": {
                         "type": "string",
                         "example": "Desarrollo Backend"
                     }
                 },
                 "required": [
-                    "id",
-                    "nombre"
+                    "id"
                 ]
             },
             "ImagenItem": {
@@ -2165,7 +2158,7 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
+                        "type": "integer",
                         "example": 0
                     },
                     "nombre": {

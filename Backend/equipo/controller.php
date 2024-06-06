@@ -32,33 +32,45 @@ class Controlador{
         $conn = $con->getConnection();
         $id = count($this->getAll()) + 1;
         $tipo = mysqli_real_escape_string($conn, $_nuevoObjeto->tipo);
-        $texto = mysqli_real_escape_string($conn, $_nuevoObjeto->texto);
-        $sql = "INSERT INTO equipo (id, tipo, texto, activo) VALUES ($id, '$tipo', '$texto', true)";
+    
         $success = false;
     
         try {
-            mysqli_begin_transaction($conn); // Start a transaction
-            $success = mysqli_query($conn, $sql);
-            $equipo_id = mysqli_insert_id($conn);
+            mysqli_begin_transaction($conn); 
     
-            // Insertar imagenes si se dan
-            if (isset($_nuevoObjeto->imagenes) && is_array($_nuevoObjeto->imagenes)) {
-                foreach ($_nuevoObjeto->imagenes as $imagen_id) {
-                    $sqlCount = "SELECT COUNT(id) AS count FROM equipo_imagen";
-                    $result = mysqli_query($conn, $sqlCount);
-                    $row = mysqli_fetch_assoc($result);
-                    $new_id = $row['count'] + 1;
+            if (isset($_nuevoObjeto->texto) && !isset($_nuevoObjeto->imagenes)) {
+                $texto = mysqli_real_escape_string($conn, $_nuevoObjeto->texto);
+                $sql = "INSERT INTO equipo (id, tipo, texto, activo) VALUES ($id, '$tipo', '$texto', true)";
+                $success = mysqli_query($conn, $sql);
+                $equipo_id = mysqli_insert_id($conn);
+            } elseif (isset($_nuevoObjeto->imagenes) && !isset($_nuevoObjeto->texto)) {
+                $sql = "INSERT INTO equipo (id, tipo, activo) VALUES ($id, '$tipo', true)";
+                $success = mysqli_query($conn, $sql);
     
-                    $sqlImagen = "INSERT INTO equipo_imagen (id, equipo_id, imagen_id) VALUES ($new_id, $equipo_id, $imagen_id)";
-                    if (!mysqli_query($conn, $sqlImagen)) {
-                        throw new Exception("Failed to insert image ID: $imagen_id");
+                
+                if (is_array($_nuevoObjeto->imagenes)) {
+                    foreach ($_nuevoObjeto->imagenes as $imagen_id) {
+                        
+                        $sqlCount = "SELECT COUNT(id) AS count FROM equipo_imagen";
+                        $result = mysqli_query($conn, $sqlCount);
+                        $row = mysqli_fetch_assoc($result);
+                        $new_id = $row['count'] + 1;
+    
+                        $sqlImagen = "INSERT INTO equipo_imagen (id, equipo_id, imagen_id) VALUES ($new_id, $id, $imagen_id)";
+                        if (!mysqli_query($conn, $sqlImagen)) {
+                            throw new Exception("Failed to insert image ID: $imagen_id");
+                        }
                     }
+                } else {
+                    throw new Exception("Imagenes debe ser un array");
                 }
+            } else {
+                throw new Exception("Debes dar o 'texto' o 'imagenes', pero no ambos");
             }
     
-            mysqli_commit($conn); 
+            mysqli_commit($conn);
         } catch (Exception $e) {
-            mysqli_rollback($conn); 
+            mysqli_rollback($conn);
             $success = false;
         }
     
@@ -86,7 +98,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE equipo SET texto = '$_nuevo' WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {
@@ -103,7 +115,7 @@ class Controlador{
     {
         $con = new Conexion();
         $sql = "UPDATE equipo SET tipo = '$_nuevo' WHERE id = $_id;";
-        $rs = false;
+        $rs = [];
         try {
             $rs = mysqli_query($con->getConnection(), $sql);
         } catch (\Throwable $th) {

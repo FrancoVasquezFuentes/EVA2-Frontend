@@ -95,13 +95,13 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input", true));
                     // var_dump($body);
                     $control = new Controlador();
-                    if (strlen($body->nombre) > 0) {
+                    if (isset($body->nombre) && strlen($body->nombre) > 0) {
                         $respuesta = $control->putNombreById($body->nombre, $body->id);
                     }
-                    if (strlen($body->imagen) > 0) {
+                    if (isset($body->imagen) && strlen($body->imagen) > 0) {
                         $respuesta = $control->putImagenById($body->imagen, $body->id);
                     }
-                    if (strlen($body->texto) > 0) {
+                    if (isset($body->texto) && strlen($body->texto) > 0) {
                         $respuesta = $control->putTextoyById($body->texto, $body->id);
                     }
                     http_response_code(200);

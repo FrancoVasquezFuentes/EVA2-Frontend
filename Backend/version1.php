@@ -1,30 +1,30 @@
 <?php
-//Headers
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
-header("Content-Type: application/json; charset=utf-8");
-
-$_metodo = $_SERVER['REQUEST_METHOD'];
-$_ubicacion = $_SERVER['HTTP_HOST'];
-$_path = $_SERVER['REQUEST_URI'];
+$_metodo = $_SERVER['REQUEST_METHOD']; // get, post, patch, put, delete
+$_ubicacion = $_SERVER['HTTP_HOST']; // localhost
+$_path = $_SERVER['REQUEST_URI']; // todo despues del server
 $_partes = explode('/', $_path);
-$_version = $_ubicacion == 'localhost' ? $_partes[2] : null;
-$_mantenedor = $_ubicacion == 'localhost' ? $_partes[3] : null;
+$_version = $_partes[2];
+$_mantenedor = $_partes[3];
 $_parametros = [];
-$_parametros = $_ubicacion == 'localhost' ? $_partes[4] : null;
+$_parametros = $_partes[4];
 
-if (strlen($_parametros)> 0){
+if (strlen($_parametros) > 0) {
     $_parametros = explode('?', $_parametros)[1];
     $_parametros = explode('&', $_parametros);
-}else{
+} else {
     $_parametros = [];
 }
+
+//header
+header("Acces-Control-Allow-Origin: *");
+header("Acces-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE");
+header("Content-Type: application/json; charset=UTF-8");
 
 //Authorization
 $_header = null;
 try {
     $_header = isset(getallheaders()['Authorization']) ? getallheaders()['Authorization'] : null;
-    if ($_header === null){
+    if ($_header === null) {
         throw new Exception("No tiene autorizacion");
     }
 } catch (Exception $e) {

@@ -37,30 +37,36 @@ if ($_version == 'Backend') {
                     echo json_encode(["Error" => "No tiene autorización GET"]);
                 }
                 break;
-            case 'POST':
-                if ($_header == $_token_post) {
-                    include_once 'controller.php';
-                    include_once '../conexion.php';
-                    $control = new Controlador();
-                    $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "tipo": "Ejemplo de tipo",           EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN  
-                        "texto": "Ejemplo de texto",
-                        "imagenes": [1, 2, 3]  // IDs de imágenes relacionadas (opcional)
-                    }*/                  
-                    $respuesta  = $control->postNuevo($body);
-                    if ($respuesta) {
-                        http_response_code(201);
-                        echo json_encode(["data" => $respuesta]);
+                case 'POST':
+                    if ($_header == $_token_post) {
+                        include_once 'controller.php';
+                        include_once '../conexion.php';
+                        $control = new Controlador();
+                        $body = json_decode(file_get_contents("php://input"));
+                    
+                        if (isset($body->tipo)) {
+                            if ((isset($body->texto) && !isset($body->imagenes)) || (!isset($body->texto) && isset($body->imagenes))) {
+                                $respuesta = $control->postNuevo($body);
+                                if ($respuesta) {
+                                    http_response_code(201);
+                                    echo json_encode(["data" => "Registro creado exitosamente"]);
+                                } else {
+                                    http_response_code(409);
+                                    echo json_encode(["data" => "error: conflicto con el nombre ingresado, ya existe"]);
+                                }
+                            } else {
+                                http_response_code(400);
+                                echo json_encode(["error" => "Debe enviar solo 'texto' o 'imagenes'"]);
+                            }
+                        } else {
+                            http_response_code(400);
+                            echo json_encode(["error" => "Falta el campo tipo"]);
+                        }
                     } else {
-                        http_response_code(409);
-                        echo json_encode(["Error" => "Error al crear la historia"]);
+                        http_response_code(401);
+                        echo json_encode(["Error" => "No tiene autorización POST"]);
                     }
-                } else {
-                    http_response_code(401);
-                    echo json_encode(["Error" => "No tiene autorización POST"]);
-                }
-                break;
+                    break;
             case 'PATCH':
                 if ($_header == $_token_patch) {
                     include_once 'controller.php';
@@ -94,11 +100,11 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input", true));
                     // var_dump($body);
                     $control = new Controlador();
-                    if (strlen($body->texto) > 0) {
-                        $respuesta = $control->putTextoById($body->texto, $body->id);
-                    }
-                    if (strlen($body->tipo) > 0) {
+                    if (isset($body->tipo) && strlen($body->tipo) > 0) {
                         $respuesta = $control->putTipoById($body->tipo, $body->id);
+                    }
+                    if (isset($body->texto) && strlen($body->texto) > 0) {
+                        $respuesta = $control->putTextoById($body->texto, $body->id);
                     }
                     http_response_code(200);
                     echo json_encode(['data' => $respuesta]);

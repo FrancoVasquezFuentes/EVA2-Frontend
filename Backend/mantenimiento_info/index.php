@@ -43,12 +43,7 @@ if ($_version == 'Backend') {
                     include_once '../conexion.php';
                     $control = new Controlador();
                     $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "nombre": "Ejemplo de nombre",
-                        "texto": "Ejemplo de texto",      EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN
-                        "activo": true
-                    }*/                  
-                    $respuesta  = $control->postNuevo($body);
+                    $respuesta = $control->postNuevo($body);
                     if ($respuesta) {
                         http_response_code(201);
                         echo json_encode(["data" => $respuesta]);
@@ -94,10 +89,12 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input", true));
                     // var_dump($body);
                     $control = new Controlador();
-                    if (strlen($body->nombre) > 0) {
+                    $respuesta = [];
+
+                    if (isset($body->nombre) && strlen($body->nombre)> 0) {
                         $respuesta = $control->putNombreById($body->nombre, $body->id);
                     }
-                    if (strlen($body->texto) > 0) {
+                    if (strlen($body->texto) && strlen($body->texto)> 0) {
                         $respuesta = $control->putTextoById($body->texto, $body->id);
                     }
                     http_response_code(200);

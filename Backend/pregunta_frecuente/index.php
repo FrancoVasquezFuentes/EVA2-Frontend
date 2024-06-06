@@ -42,11 +42,7 @@ if ($_version == 'Backend') {
                     include_once 'controller.php';
                     include_once '../conexion.php';
                     $control = new Controlador();
-                    $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "pregunta": "Ejemplo de nombre",
-                        "respuesta": "url_de_la_imagen",       EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY
-                    }*/                  
+                    $body = json_decode(file_get_contents("php://input"));                
                     $respuesta  = $control->postNuevo($body);
                     if ($respuesta) {
                         http_response_code(201);
@@ -93,10 +89,14 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input", true));
                     // var_dump($body);
                     $control = new Controlador();
-                    if (strlen($body->pregunta) > 0) {
+                    $respuesta = [];
+    
+                    $body = json_decode(file_get_contents("php://input"));
+                    if (isset($body->pregunta) && strlen($body->pregunta) > 0) {
                         $respuesta = $control->putPreguntaById($body->pregunta, $body->id);
                     }
-                    if (strlen($body->respuesta) > 0) {
+
+                    if (isset($body->respuesta) && strlen($body->respuesta) > 0) {
                         $respuesta = $control->putRespuestaById($body->respuesta, $body->id);
                     }
                     http_response_code(200);

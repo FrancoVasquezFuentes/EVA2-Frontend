@@ -42,15 +42,7 @@ if ($_version == 'Backend') {
                     include_once 'controller.php';
                     include_once '../conexion.php';
                     $control = new Controlador();
-                    $body = json_decode(file_get_contents("php://input"));
-                    /*{
-                        "id": "Ejmplo Id",
-                        "icono": "Nuevo Icono",
-                        "nombre": "Ejemplo de nombre",    EJEMPLO DE LO QUE SE TIENE QUE PONER EN EL BODY RAW DE POSTMAN
-                        "texto": "Ejemplo de texto",
-                        "texto_adicional": "Ejemplo de texto_adicional",
-                        "activo": true
-                    }*/                  
+                    $body = json_decode(file_get_contents("php://input"));                
                     $respuesta  = $control->postNuevo($body);
                     if ($respuesta) {
                         http_response_code(201);
@@ -97,16 +89,16 @@ if ($_version == 'Backend') {
                     $body = json_decode(file_get_contents("php://input", true));
                     // var_dump($body);
                     $control = new Controlador();
-                    if (strlen($body->nombre) > 0) {
+                    if (isset($body->nombre) && strlen($body->nombre) > 0) {
                         $respuesta = $control->putNombreById($body->nombre, $body->id);
                     }
-                    if (strlen($body->icono) > 0) {
+                    if (isset($body->icono) && strlen($body->icono) > 0) {
                         $respuesta = $control->putIconoById($body->icono, $body->id);
                     }
-                    if (strlen($body->texto) > 0) {
+                    if (isset($body->texto) && strlen($body->texto) > 0) {
                         $respuesta = $control->putTextoById($body->texto, $body->id);
                     }
-                    if (strlen($body->texto_adicional) > 0) {
+                    if (isset($body->texto_adicional) && strlen($body->texto_adicional) > 0) {
                         $respuesta = $control->putTextoAdicionalById($body->texto_adicional, $body->id);
                     }
                     http_response_code(200);
